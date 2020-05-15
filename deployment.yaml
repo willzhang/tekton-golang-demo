@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-web-app
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      run: go-web-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: go-web-app
+    spec:
+      containers:
+      - name: go-web-app
+        image: 192.168.93.40:8080/library/go-hello-world:<VERSION>
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-web-service
+  namespace: default
+  labels:
+    run: go-web-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 30080
+  selector:
+    run: go-web-app

@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       run: go-web-app
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: go-web-app
-        image: 192.168.93.40:8080/library/go-hello-world:<VERSION>
+        image: docker.io/willdockerhub/go-hello-world:latest
         ports:
         - containerPort: 8080
 ---
@@ -27,11 +27,9 @@ metadata:
   labels:
     run: go-web-service
 spec:
-  type: NodePort
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 8080
-    nodePort: 30080
   selector:
     run: go-web-app

@@ -1,3 +1,3 @@
-module github.com/GoogleCloudPlatform/golang-samples/run/helloworld
+module tekton-golang-demo
 
-go 1.19
+go 1.20
